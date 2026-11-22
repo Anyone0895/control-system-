@@ -22,3 +22,17 @@ pinMode(X_DIR, OUTPUT);
 pinMode(Y_STEP, OUTPUT);
 pinMode(Y_DIR, OUTPUT);
 }
+
+void loop() 
+{
+//едем по оси X на 10 мм
+digitalWrite(X_DIR, HIGH);
+for (int i = 0; i < 10 * shagi; i++) //цикл шагов
+{
+    digitalWrite(X_STEP, HIGH);
+    delayMicroseconds(???); // скорость (500)
+    digitalWrite(X_STEP, LOW);
+    delayMicroseconds(???); (500)
+ }
+ delay(2000); //пауза 2 секунды
+}
