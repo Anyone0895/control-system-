@@ -7,7 +7,7 @@
 #define Y_STEP 27
 #define Y_DIR  13
 
-float shagi = ??? (80.0) //пересчет мм в шаши двигателя (тест)
+const float shagi = ??? (80.0) //пересчет мм в шаги двигателя (тест)
 
 //FastAccelStepperEngine motorEngine = FastAccelStepperEngine(); //движок для управления моторами
 //FastAccelStepper *motorX = NULL; //мотор оси Х (пока 0)
