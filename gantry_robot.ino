@@ -7,3 +7,4 @@
 #define Y_STEP 27
 #define Y_DIR  13
 
+float shagi = ??? (80.0)
