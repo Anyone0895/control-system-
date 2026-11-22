@@ -18,3 +18,7 @@ void setup()
 //задаем пины мотора X как выходы
 pinMode(X_STEP, OUTPUT);
 pinMode(X_DIR, OUTPUT);
+//задаем пины мотора Y как выходы
+  pinMode(Y_STEP, OUTPUT);
+  pinMode(Y_DIR, OUTPUT);
+}
