@@ -46,4 +46,26 @@ for (int i = 0; i < 10 * shagi; i++) //цикл шагов
     delayMicroseconds(500); //(тест скорость)
   }
     delay(2000); //пауза 2 секунды
+
+//едем по оси X назад на 10 мм
+  digitalWrite(X_DIR, LOW); //направление назад
+  for (int i = 0; i < 10 * shagi; i++) //цикл шагов
+  {
+    digitalWrite(X_STEP, HIGH);
+    delayMicroseconds(500); //скорость (тест скорость)
+    digitalWrite(X_STEP, LOW);
+    delayMicroseconds(500); //(тест скорость)
+  }
+    delay(2000); //пауза 2 секунды
+
+//едем по оси Y назад на 10 мм
+  digitalWrite(Y_DIR, LOW); //направление назад
+  for (int i = 0; i < 10 * shagi; i++) //цикл шагов
+  {
+    digitalWrite(Y_STEP, HIGH);
+    delayMicroseconds(500); //скорость (тест скорость)
+    digitalWrite(Y_STEP, LOW);
+    delayMicroseconds(500); //(тест скорость)
+  }
+    delay(2000); //пауза 2 секунды
 }
