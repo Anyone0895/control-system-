@@ -8,3 +8,7 @@
 #define Y_DIR  13
 
 float shagi = ??? (80.0) //пересчет мм в шаши двигателя (тест)
+
+FastAccelStepperEngine motorEngine = FastAccelStepperEngine(); //движок для управления моторами
+FastAccelStepper *motorX = NULL; //мотор оси Х (пока 0)
+FastAccelStepper *motorY = NULL; //мотор оси Y (пока 0)
