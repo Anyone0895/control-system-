@@ -13,7 +13,7 @@ float shagi = ??? (80.0) //пересчет мм в шаши двигателя 
 //FastAccelStepper *motorX = NULL; //мотор оси Х (пока 0)
 //FastAccelStepper *motorY = NULL; //мотор оси Y (пока 0)
 
-void setup() 
+void setup() //повторяется один раз при включении
 {
 //задаем пины мотора X как выходы
 pinMode(X_STEP, OUTPUT);
@@ -23,7 +23,7 @@ pinMode(Y_STEP, OUTPUT);
 pinMode(Y_DIR, OUTPUT);
 }
 
-void loop() 
+void loop() //повторяется бесконечно
 {
 //едем по оси X на 10 мм
 digitalWrite(X_DIR, HIGH);
