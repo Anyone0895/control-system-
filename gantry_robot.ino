@@ -30,9 +30,9 @@ digitalWrite(X_DIR, HIGH);
 for (int i = 0; i < 10 * shagi; i++) //цикл шагов
 {
     digitalWrite(X_STEP, HIGH);
-    delayMicroseconds(???); // скорость (500)
+    delayMicroseconds(500); // скорость (тест скорость)
     digitalWrite(X_STEP, LOW);
-    delayMicroseconds(???); (500)
+    delayMicroseconds(500); (тест скорость)
  }
  delay(2000); //пауза 2 секунды
 }
