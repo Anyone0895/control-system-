@@ -28,9 +28,11 @@ int pusto = 1000; //если БОЛЬШЕ  — вода в баке есть
 //Текущие координаты робота
 float activeX = 0;
 float activeY = 0;
+
 //Исходная точка (дом), куда всегда будет возвращаться робот
 const float homeX = 0;
 const float homeY = 0;
+
 //Возврат к исходному углу
 const int X_HOME_DIR = LOW;   //нужно будет проверить, как поедет робот (поменять HIGH - LOW)
 const int Y_HOME_DIR = LOW;
@@ -92,6 +94,20 @@ digitalWrite(ALARM_LED, LOW); //при старте выключаем
 
 void loop() //повторяется бесконечно
 {
+//проверка воды ДО выезда (если бак пустой — не двигаемся)
+ int waterValue = analogRead(WATER_PIN); //проверяем уровень воды
+ if (waterValue <= pusto) //если воды НЕТ (ошибка)
+ {
+   digitalWrite(PUMP_PIN, LOW); //на всякий случай выключаем насос
+   while (analogRead(WATER_PIN) <= pusto) //светодиод моргает, пока не дольют воду
+   {
+     digitalWrite(ALARM_LED, HIGH);
+     delay(1000);
+    digitalWrite(ALARM_LED, LOW);
+     delay(1000);
+  }
+}
+
 //едем по оси X на s мм
 digitalWrite(X_DIR, HIGH);
 for (int i = 0; i < mmX * shagi; i++) //цикл шагов
@@ -116,19 +132,6 @@ for (int i = 0; i < mmX * shagi; i++) //цикл шагов
     activeY = activeY + mmY; //запомнили координату Y
     delay(2000); //пауза 2 секунды
 
-//проверка воды и аварийная обработка
-  int waterValue = analogRead(WATER_PIN); //читаем уровень воды
-  if (waterValue <= pusto) //если воды НЕТ (ошибка)
- {
-   digitalWrite(PUMP_PIN, LOW); //на всякий случай выключаем насос
-   while (analogRead(WATER_PIN) <= pusto) //светодиод моргает, пока не дольют воду
-   {
-     digitalWrite(ALARM_LED, HIGH);
-     delay(1000);
-     digitalWrite(ALARM_LED, LOW);
-     delay(1000);
-   }
- }
  //проверка влажности почвы и полив (сюда дойдет, только когда вода есть)
  int dirtValue = analogRead(DIRT_PIN); //читаем влажность почвы
  if (dirtValue > suho) //если земля сухая
