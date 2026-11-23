@@ -10,10 +10,13 @@
 const float shagi = ??? (80.0) //пересчет мм в шаги двигателя (тест)
 //Текущие координаты робота
 float activeX = 0;
-float currentY = 0;
+float activeY = 0;
 //Исходная точка (дом), куда всегда будет возвращаться робот
-float homeX = 0;
-float homeY = 0;
+const float homeX = 0;
+const float homeY = 0;
+//Возврат к исходному углу
+const int X_HOME_DIR = LOW;   //нужно будет проверить, как поедет робот (поменять HIGH - LOW)
+const int Y_HOME_DIR = HIGH;
 
 //FastAccelStepperEngine motorEngine = FastAccelStepperEngine(); //движок для управления моторами
 //FastAccelStepper *motorX = NULL; //мотор оси Х (пока 0)
