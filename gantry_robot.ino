@@ -36,6 +36,33 @@ pinMode(X_DIR, OUTPUT);
 //задаем пины мотора Y как выходы
 pinMode(Y_STEP, OUTPUT);
 pinMode(Y_DIR, OUTPUT);
+//задаем пины концевиков как входы с подтяжкой(не нажата HIGH, нажата LOW)
+pinMode(X_LIMIT, INPUT_PULLUP);
+pinMode(Y_LIMIT, INPUT_PULLUP);
+
+//поиск исходного угла при включении
+//едем по X в угол, пока кнопка не нажмется
+  digitalWrite(X_DIR, X_HOME_DIR); //направление домой
+  while (digitalRead(X_LIMIT) == HIGH) //пока кнопка X НЕ нажата
+  {
+    digitalWrite(X_STEP, HIGH);
+    delayMicroseconds(500); 
+    digitalWrite(X_STEP, LOW);
+    delayMicroseconds(500);
+  }
+  activeX = homeX; //запоминаем, что мы в 0
+  
+//едем по Y в угол, пока кнопка не нажмется
+  digitalWrite(Y_DIR, Y_HOME_DIR);
+  while (digitalRead(Y_LIMIT) == HIGH) //пока кнопка Y НЕ нажата
+  {
+    digitalWrite(Y_STEP, HIGH);
+    delayMicroseconds(500); 
+    digitalWrite(Y_STEP, LOW);
+    delayMicroseconds(500);
+  }
+  activeY = homeY; //запоминаем, что мы в 0
+  delay(2000);
 }
 
 void loop() //повторяется бесконечно
