@@ -8,6 +8,12 @@
 #define Y_DIR  13
 
 const float shagi = ??? (80.0) //пересчет мм в шаги двигателя (тест)
+//Текущие координаты робота
+float activeX = 0;
+float currentY = 0;
+//Исходная точка (дом), куда будет возвращаться робот
+float homeX = 0;
+float homeY = 0;
 
 //FastAccelStepperEngine motorEngine = FastAccelStepperEngine(); //движок для управления моторами
 //FastAccelStepper *motorX = NULL; //мотор оси Х (пока 0)
