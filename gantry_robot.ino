@@ -23,7 +23,7 @@ int mmY = 10; //столько-то проехать по y
 
 //пороги срабатывания датчиков (надо будет проверить значения)
 int suho = 2500;  //если БОЛЬШЕ — земля сухая
-int mokro = 1000; //если БОЛЬШЕ  — вода в баке есть
+int pusto = 1000; //если БОЛЬШЕ  — вода в баке есть
 
 //Текущие координаты робота
 float activeX = 0;
@@ -116,16 +116,28 @@ for (int i = 0; i < mmX * shagi; i++) //цикл шагов
     activeY = activeY + mmY; //запомнили координату Y
     delay(2000); //пауза 2 секунды
 
-//проверка датчиков и полив
-int dirtValue = analogRead(DIRT_PIN);   //читаем влажность почвы
-int waterValue = analogRead(WATER_PIN); //читаем уровень воды
-if (waterValue > mokro && dirtValue > suho) //если вода есть И земля сухая
-{
-  digitalWrite(PUMP_PIN, HIGH); //включаем насос
-  delay(4000); //поливаем 4 секунды
-  digitalWrite(PUMP_PIN, LOW); //выключаем насос
-}
-  delay(2000); //пауза перед возвратом домой
+//проверка воды и аварийная обработка
+  int waterValue = analogRead(WATER_PIN); //читаем уровень воды
+  if (waterValue <= pusto) //если воды НЕТ (ошибка)
+ {
+   digitalWrite(PUMP_PIN, LOW); //на всякий случай выключаем насос
+   while (analogRead(WATER_PIN) <= pusto) //светодиод моргает, пока не дольют воду
+   {
+     digitalWrite(ALARM_LED, HIGH);
+     delay(1000);
+     digitalWrite(ALARM_LED, LOW);
+     delay(1000);
+   }
+ }
+ //проверка влажности почвы и полив (сюда дойдет, только когда вода есть)
+ int dirtValue = analogRead(DIRT_PIN); //читаем влажность почвы
+ if (dirtValue > suho) //если земля сухая
+ {
+   digitalWrite(PUMP_PIN, HIGH); //включаем насос
+   delay(4000); //поливаем 4 секунды
+   digitalWrite(PUMP_PIN, LOW); //выключаем насос
+ }
+ delay(2000); //пауза перед возвратом домой
 
 //едем по оси X назад на s мм
   digitalWrite(X_DIR, X_HOME_DIR); //направление домой
