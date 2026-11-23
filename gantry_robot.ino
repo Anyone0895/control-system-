@@ -15,6 +15,7 @@
 #define DIRT_PIN  34 //датчик влажности почвы
 #define WATER_PIN 35 //датчик уровня воды в баке
 #define PUMP_PIN  23 //реле насоса (зеленый пин)
+#define ALARM_LED 2 //встроенный светодиод для сигнала аварии
 
 const float shagi = ??? (80.0) //пересчет мм в шаги двигателя (тест)
 int mmX = 10; //столько-то проехать по х 
@@ -59,6 +60,10 @@ pinMode(WATER_PIN, INPUT);
 //задаем пин насоса как выход и выключаем его
 pinMode(PUMP_PIN, OUTPUT);
 digitalWrite(PUMP_PIN, LOW);
+
+//задаем пин светодиода как выход (ошибка - воды в баке нет)
+pinMode(ALARM_LED, OUTPUT);
+digitalWrite(ALARM_LED, LOW); //при старте выключаем
 
 //поиск исходного угла при включении
 //едем по X в угол, пока кнопка не нажмется
