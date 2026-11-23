@@ -8,6 +8,8 @@
 #define Y_DIR  13
 
 const float shagi = ??? (80.0) //пересчет мм в шаги двигателя (тест)
+int mm = 10; //расстояние (s), которое нужно будет проехать
+
 //Текущие координаты робота
 float activeX = 0;
 float activeY = 0;
@@ -34,9 +36,9 @@ pinMode(Y_DIR, OUTPUT);
 
 void loop() //повторяется бесконечно
 {
-//едем по оси X на 10 мм
+//едем по оси X на s мм
 digitalWrite(X_DIR, HIGH);
-for (int i = 0; i < 10 * shagi; i++) //цикл шагов
+for (int i = 0; i < mm * shagi; i++) //цикл шагов
 {
     digitalWrite(X_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
@@ -45,9 +47,9 @@ for (int i = 0; i < 10 * shagi; i++) //цикл шагов
  }
     delay(2000); //пауза 2 секунды
 
-//едем по оси Y вперед на 10 мм
+//едем по оси Y вперед на s мм
   digitalWrite(Y_DIR, HIGH); //цикл шагов
-  for (int i = 0; i < 10 * shagi; i++)
+  for (int i = 0; i < mm * shagi; i++)
   {
     digitalWrite(Y_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
@@ -56,9 +58,9 @@ for (int i = 0; i < 10 * shagi; i++) //цикл шагов
   }
     delay(2000); //пауза 2 секунды
 
-//едем по оси X назад на 10 мм
+//едем по оси X назад на s мм
   digitalWrite(X_DIR, LOW); //направление назад
-  for (int i = 0; i < 10 * shagi; i++) //цикл шагов
+  for (int i = 0; i < mm * shagi; i++) //цикл шагов
   {
     digitalWrite(X_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
@@ -67,9 +69,9 @@ for (int i = 0; i < 10 * shagi; i++) //цикл шагов
   }
     delay(2000); //пауза 2 секунды
 
-//едем по оси Y назад на 10 мм
+//едем по оси Y назад на s мм
   digitalWrite(Y_DIR, LOW); //направление назад
-  for (int i = 0; i < 10 * shagi; i++) //цикл шагов
+  for (int i = 0; i < mm * shagi; i++) //цикл шагов
   {
     digitalWrite(Y_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
