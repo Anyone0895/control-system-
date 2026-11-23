@@ -6,9 +6,13 @@
 #define X_DIR  26 //направление
 #define Y_STEP 27
 #define Y_DIR  13
+//такие же пины для концевиков
+#define X_LIMIT 18 //концевик оси X
+#define Y_LIMIT 19 //концевик оси Y
 
 const float shagi = ??? (80.0) //пересчет мм в шаги двигателя (тест)
-int mm = 10; //расстояние (s), которое нужно будет проехать
+int mmX = 10; //столько-то проехать по х 
+int mmY = 10; //столько-то проехать по y
 
 //Текущие координаты робота
 float activeX = 0;
@@ -18,7 +22,7 @@ const float homeX = 0;
 const float homeY = 0;
 //Возврат к исходному углу
 const int X_HOME_DIR = LOW;   //нужно будет проверить, как поедет робот (поменять HIGH - LOW)
-const int Y_HOME_DIR = HIGH;
+const int Y_HOME_DIR = LOW;
 
 //FastAccelStepperEngine motorEngine = FastAccelStepperEngine(); //движок для управления моторами
 //FastAccelStepper *motorX = NULL; //мотор оси Х (пока 0)
@@ -38,45 +42,49 @@ void loop() //повторяется бесконечно
 {
 //едем по оси X на s мм
 digitalWrite(X_DIR, HIGH);
-for (int i = 0; i < mm * shagi; i++) //цикл шагов
+for (int i = 0; i < mmX * shagi; i++) //цикл шагов
 {
     digitalWrite(X_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
     digitalWrite(X_STEP, LOW);
     delayMicroseconds(500); //(тест скорость)
  }
+ activeX = activeX + mmX; //запомнили координату Х
     delay(2000); //пауза 2 секунды
 
 //едем по оси Y вперед на s мм
   digitalWrite(Y_DIR, HIGH); //цикл шагов
-  for (int i = 0; i < mm * shagi; i++)
+  for (int i = 0; i < mmY * shagi; i++)
   {
     digitalWrite(Y_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
     digitalWrite(Y_STEP, LOW);
     delayMicroseconds(500); //(тест скорость)
   }
+    activeY = activeY + mmY; //запомнили координату Y
     delay(2000); //пауза 2 секунды
 
 //едем по оси X назад на s мм
-  digitalWrite(X_DIR, LOW); //направление назад
-  for (int i = 0; i < mm * shagi; i++) //цикл шагов
+  digitalWrite(X_DIR, X_HOME_DIR); //направление домой
+  for (int i = 0; i < activeX * shagi; i++) //едем в точку дома по X
   {
     digitalWrite(X_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
     digitalWrite(X_STEP, LOW);
     delayMicroseconds(500); //(тест скорость)
   }
+    activeX = homeX; //сбросили координату X в 0
     delay(2000); //пауза 2 секунды
 
 //едем по оси Y назад на s мм
-  digitalWrite(Y_DIR, LOW); //направление назад
-  for (int i = 0; i < mm * shagi; i++) //цикл шагов
+  digitalWrite(Y_DIR, Y_HOME_DIR); 
+  for (int i = 0; i < activeY * shagi; i++) //едем в точку дома по Y
   {
     digitalWrite(Y_STEP, HIGH);
     delayMicroseconds(500); //скорость (тест скорость)
     digitalWrite(Y_STEP, LOW);
     delayMicroseconds(500); //(тест скорость)
   }
+    activeY = homeY; //сбросили координату Y в 0
     delay(2000); //пауза 2 секунды
 }
